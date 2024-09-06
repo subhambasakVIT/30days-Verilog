@@ -1,0 +1,24 @@
+//Given four unsigned numbers, find the minimum. Unsigned numbers can be compared with standard comparison operators (a < b). Use the conditional operator to make two-way min circuits, then compose a few of them to create a 4-way min circuit. You'll probably want some wire vectors for the intermediate results.
+
+module top_module (
+    input [7:0] a, b, c, d,
+    output [7:0] min);//
+
+    // assign intermediate_result1 = compare? true: false;
+    wire [7:0] t1,t2;
+    assign t1 = (a>b)?b:a;
+    assign t2 = (c>d)?d:c;
+    assign min = (t1>t2)?t2:t1; 
+
+endmodule
+
+
+//Parity checking is often used as a simple method of detecting errors when transmitting data through an imperfect channel. Create a circuit that will compute a parity bit for a 8-bit byte (which will add a 9th bit to the byte). We will use "even" parity, where the parity bit is just the XOR of all 8 data bits.
+
+module top_module (
+    input [7:0] in,
+    output parity); 
+
+    assign parity = ^in;
+    
+endmodule
