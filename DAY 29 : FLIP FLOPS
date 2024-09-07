@@ -1,0 +1,132 @@
+//Create a single D flip-flop.
+
+module top_module (
+    input clk,    // Clocks are used in sequential circuits
+    input d,
+    output reg q );//
+
+    // Use a clocked always block
+    //   copy d to q at every positive edge of clk
+    //   Clocked always blocks should use non-blocking assignments
+    
+    always @(posedge clk) q = d;
+
+endmodule
+
+
+//Create 8 D flip-flops. All DFFs should be triggered by the positive edge of clk.
+
+module top_module (
+    input clk,
+    input [7:0] d,
+    output [7:0] q
+);
+    
+    always @(posedge clk) q =d;
+
+endmodule
+
+
+//Create 8 D flip-flops with active high synchronous reset. All DFFs should be triggered by the positive edge of clk.
+
+module top_module (
+    input clk,
+    input reset,            // Synchronous reset
+    input [7:0] d,
+    output [7:0] q
+);
+    
+    always @(posedge clk) q = (reset?0:d);
+
+endmodule
+
+
+//Create 8 D flip-flops with active high asynchronous reset. All DFFs should be triggered by the positive edge of clk.
+
+module top_module (
+    input clk,
+    input areset,   // active high asynchronous reset
+    input [7:0] d,
+    output [7:0] q
+);
+    
+    always @(posedge clk or posedge areset) 
+        begin
+            if(areset)
+                q <= 8'b0;
+            else
+                q <= d;
+        end
+
+endmodule
+
+
+//Implimenting a given circuit
+
+module top_module (
+    input clk,
+    input in, 
+    output out);
+
+    reg q;
+    always @(posedge clk) begin
+        out <= in ^ q;
+    end
+    assign q = out;
+    
+endmodule
+
+
+//Taken from ECE253 2015 midterm question 5
+
+module top_module (
+	input clk,
+	input L,
+	input r_in,
+	input q_in,
+	output reg Q);
+    
+    wire mux_out;
+    assign mux_out = (L) ? r_in : q_in;
+    always @(posedge clk) begin
+        Q <= mux_out;
+    end
+
+endmodule
+
+
+//A JK flip-flop has the below truth table. Implement a JK flip-flop with only a D-type flip-flop and gates. Note: Qold is the output of the D flip-flop before the positive clock edge.
+J	  K	  Q
+0	  0	  Qold
+0	  1	  0
+1	  0	  1
+1	  1	  ~Qold
+
+module top_module (
+    input clk,
+    input j,
+    input k,
+    output Q); 
+	
+    always @(posedge clk) Q = j&~Q | Q&~k ;
+    
+endmodule
+
+
+//Build a circuit that functionally behaves like a dual-edge triggered flip-flop:
+
+module top_module (
+    input clk,
+    input d,
+    output q
+);
+
+    reg s1,s2;
+    always @(posedge clk)
+        s1 <= d;
+    always @(negedge clk)
+        s2 <= d;
+    assign q = clk?s1:s2;
+    
+endmodule
+
