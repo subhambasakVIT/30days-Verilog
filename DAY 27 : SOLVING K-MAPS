@@ -1,0 +1,35 @@
+module top_module(
+    input a,
+    input b,
+    input c,
+    output out  ); 
+	
+    assign out = ((a|b|c)?1:0);
+    
+endmodule
+
+
+
+module top_module(
+    input a,
+    input b,
+    input c,
+    input d,
+    output out  ); 
+    
+	assign out = ~a&~c&~d | ~a&~b&~c | ~a&c&~d | ~a&b&c | a&c&d | a&~b&~c; 
+    
+endmodule
+
+
+
+module top_module(
+    input a,
+    input b,
+    input c,
+    input d,
+    output out  ); 
+	
+    assign out = a&c | a&~c&~d | ~b&c;
+    
+endmodule
