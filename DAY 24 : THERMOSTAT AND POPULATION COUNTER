@@ -1,0 +1,28 @@
+//Problem 1: Thermostat Controller : The first task was to design a controller for a thermostat. A **thermostat** is a device that regulates the temperature of a system by switching heating or cooling devices on or off as needed. In this scenario, the thermostat controls both a heater (for winter) and an air conditioner (for summer).
+
+module top_module (
+    input too_cold,
+    input too_hot,
+    input mode,
+    input fan_on,
+    output heater,
+    output aircon,
+    output fan
+); 
+    
+    assign heater = mode && too_cold;
+    assign aircon = ~mode && too_hot;
+    assign fan = fan_on || heater || aircon ;
+    
+endmodule
+
+
+//A "population count" circuit counts the number of '1's in an input vector. Build a population count circuit for a 3-bit input vector.
+
+module top_module( 
+    input [2:0] in,
+    output [1:0] out );
+
+    assign out = in[0] +in[1] + in[2];
+    
+endmodule
